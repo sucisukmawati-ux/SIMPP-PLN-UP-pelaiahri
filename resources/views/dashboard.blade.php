@@ -17,7 +17,6 @@
                         </svg>
                     </button>
                     <div>
-                        <p class="text-xs font-medium text-slate-500">Selasa, 24 November 2026</p>
                         <h1 class="text-2xl font-bold text-slate-900">Ringkasan Operasional</h1>
                     </div>
                 </div>
