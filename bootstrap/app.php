@@ -12,7 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->trustHosts(
+            at: fn (): array => [
+                '^'.preg_quote((string) parse_url(config('app.url'), PHP_URL_HOST), '/').'$',
+            ],
+            subdomains: false,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
