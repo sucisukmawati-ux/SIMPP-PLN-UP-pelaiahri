@@ -11,12 +11,14 @@
                     <p class="text-2xl font-extrabold tracking-wide text-white">SIMPP</p>
                     <p class="mt-1 text-xs font-semibold tracking-[0.18em] text-slate-300">PLN UP PELAIAHRI</p>
                 </div>
-            </header>
 
-            <section aria-labelledby="login-heading" class="mx-auto w-full max-w-sm rounded-[10px] bg-white p-4 text-slate-900 shadow-2xl shadow-black/25 sm:p-5">
-                <h2 id="login-heading" class="mt-1.5 text-center text-xl font-bold tracking-tight text-slate-900">Masuk ke SIMPP</h2>
+                <p class="mt-5 text-sm font-semibold text-blue-700">Selamat datang</p>
+                <h2 id="login-heading" class="mt-2 text-2xl font-bold tracking-tight text-slate-900">Masuk ke SIMPP</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-500">
+                    Masukkan email dan kata sandi akun petugas Anda.
+                </p>
 
-                <form action="{{ route('dashboard') }}" method="get" class="mt-4 grid gap-2">
+                <div class="mt-6 grid gap-2">
                     <x-ui.text-field
                         label="Username"
                         name="username"
@@ -34,11 +36,19 @@
                         required
                     />
 
-                    <x-ui.primary-button type="submit" class="mt-1 w-full">
-                        Masuk
+                    <x-ui.primary-button class="mt-1 w-full">
+                        Masuk ke sistem
                     </x-ui.primary-button>
-                </form>
+                </div>
 
+                <div class="mt-5 flex items-start gap-3 border-t border-slate-100 pt-4">
+                    <span class="mt-0.5 text-slate-400">
+                        <svg class="size-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+                            <path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                    </span>
+                </div>
             </section>
         </main>
     </div>
