@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Foundation\Auth\NamelVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,19 +12,19 @@ class EmailVerificationController extends Controller
 {
     public function notice(Request $request): View|RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
+        if ($request->user()->hasVerifiedName()) {
             return redirect()->route('dashboard');
         }
 
-        return view('auth.verify-email');
+        return view('auth.verify-name');
     }
 
-    public function verify(EmailVerificationRequest $request): RedirectResponse
+    public function verify(NameVerificationRequest $request): RedirectResponse
     {
         $request->fulfill();
 
         return redirect()->intended(route('dashboard'))
-            ->with('status', 'Alamat email berhasil diverifikasi.');
+            ->with('status', 'Pengguna berhasil diverifikasi.');
     }
 
     public function send(Request $request): RedirectResponse

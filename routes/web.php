@@ -27,12 +27,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-    Route::get('/email/verify', [EmailVerificationController::class, 'notice'])
+    Route::get('/name/verify', [NameVerificationController::class, 'notice'])
         ->name('verification.notice');
-    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    Route::get('/name/verify/{id}/{hash}', [NameVerificationController::class, 'verify'])
         ->middleware(['signed', 'throttle:6,1'])
         ->name('verification.verify');
-    Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
+    Route::post('/name/verification-notification', [NameVerificationController::class, 'send'])
         ->middleware('throttle:verification-notification')
         ->name('verification.send');
 

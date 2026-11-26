@@ -15,29 +15,29 @@ class LoginController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'email' => ['required', 'string', 'email', 'max:254'],
+            'name' => ['required', 'string', 'name', 'max:254'],
             'password' => ['required', 'string', new PasswordByteLength],
             'remember' => ['sometimes', 'boolean'],
         ], [
-            'email.required' => 'Alamat email wajib diisi.',
-            'email.email' => 'Masukkan alamat email yang valid.',
+            'name.required' => 'Nama wajib diisi.',
+            'password.required' => 'Kata sandi wajib diisi.',
             'password.required' => 'Kata sandi wajib diisi.',
         ]);
 
         $credentials = [
-            'email' => Str::lower(trim($validated['email'])),
+            'name' => Str::lower(trim($validated['name'])),
             'password' => $validated['password'],
         ];
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => 'Alamat email atau kata sandi tidak valid.',
+                'name' => 'Nama atau kata sandi tidak valid.',
             ]);
         }
 
         $request->session()->regenerate();
 
-        if (! $request->user()->hasVerifiedEmail()) {
+        if (! $request->user()->hasVerifiedName()) {
             return redirect()->route('verification.notice');
         }
 
