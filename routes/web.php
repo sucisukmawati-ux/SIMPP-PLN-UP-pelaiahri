@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\NameVerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;

@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class EmailVerificationController extends Controller
+class NameVerificationController extends Controller
 {
     public function notice(Request $request): View|RedirectResponse
     {
