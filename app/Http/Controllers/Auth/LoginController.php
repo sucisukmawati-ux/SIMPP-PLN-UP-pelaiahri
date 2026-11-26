@@ -15,12 +15,11 @@ class LoginController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'name', 'max:254'],
+            'name' => ['required', 'string', 'max:254'],
             'password' => ['required', 'string', new PasswordByteLength],
             'remember' => ['sometimes', 'boolean'],
         ], [
             'name.required' => 'Nama wajib diisi.',
-            'password.required' => 'Kata sandi wajib diisi.',
             'password.required' => 'Kata sandi wajib diisi.',
         ]);
 
@@ -37,7 +36,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        if (! $request->user()->hasVerifiedName()) {
+        if (! $request->user()->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 

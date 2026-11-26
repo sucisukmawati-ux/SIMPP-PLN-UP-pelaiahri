@@ -43,13 +43,13 @@
                         <x-ui.text-field
                             label="Nama Pengguna"
                             name="name"
-                            type="name"
+                            type="text"
                             placeholder="Masukkan nama pengguna"
                             autocomplete="username"
                             required
                             autofocus
                         />
-                        @error('email')
+                        @error('name')
                             <p class="text-sm text-red-700">{{ $message }}</p>
                         @enderror
                         <x-ui.text-field
