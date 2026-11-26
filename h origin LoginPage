@@ -1,0 +1,18 @@
+[33mcommit 675cd0fe46360a9ddee08cfd5d54e3446aa916d5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mLoginPage[m[33m, [m[1;31morigin/LoginPage[m[33m)[m
+Merge: 2d21667 f5633f6
+Author: sucisukmawati-ux <suci.sukmawati@mhs.politala.ac.id>
+Date:   Wed Nov 25 16:05:17 2026 +0800
+
+    validasi
+
+[33mcommit 2d216676a1eaf5c72ce9aade0098b7b2a412268e[m
+Author: sucisukmawati-ux <suci.sukmawati@mhs.politala.ac.id>
+Date:   Wed Nov 25 15:53:47 2026 +0800
+
+    push
+
+[33mcommit f5633f662abd2d75e88ae1dec4d34ac2b76f8e41[m[33m ([m[1;31morigin/ValidasiLoginDanKeamanan[m[33m)[m
+Author: Hairi Gunawan <hairigunawan5@gmail.com>
+Date:   Tue Nov 24 22:43:46 2026 -0800
+
+    validasi login
