@@ -11,15 +11,37 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_login_form_uses_https_when_request_arrives_through_a_tls_terminating_proxy(): void
+    {
+        $response = $this->get('/', [
+            'X-Forwarded-Host' => 'dude-unopened-rocking.ngrok-free.dev',
+            'X-Forwarded-Proto' => 'https',
+        ]);
+
+        $response->assertOk()
+            ->assertSee('action="https://dude-unopened-rocking.ngrok-free.dev/login"', false);
+    }
+
+    public function test_login_accepts_a_username_without_a_custom_validation_rule(): void
+    {
+        $response = $this->post('/login', [
+            'name' => 'petugas',
+            'password' => '',
+        ]);
+
+        $response->assertRedirect()
+            ->assertSessionHasErrors(['password']);
+    }
+
     public function test_verified_user_can_log_in_and_reach_the_dashboard(): void
     {
         $user = User::factory()->create([
-            'email' => 'petugas@example.com',
+            'name' => 'petugas',
             'password' => Hash::make('CorrectHorseBattery!42'),
         ]);
 
         $response = $this->post('/login', [
-            'email' => ' PETUGAS@example.com ',
+            'name' => ' PETUGAS ',
             'password' => 'CorrectHorseBattery!42',
         ]);
 
@@ -31,30 +53,30 @@ class LoginTest extends TestCase
     public function test_invalid_credentials_show_a_generic_error(): void
     {
         User::factory()->create([
-            'email' => 'petugas@example.com',
+            'name' => 'petugas',
             'password' => Hash::make('CorrectHorseBattery!42'),
         ]);
 
         $response = $this->post('/login', [
-            'email' => 'petugas@example.com',
+            'name' => 'petugas',
             'password' => 'wrong-password',
         ]);
 
         $response->assertRedirect()
             ->assertSessionHasErrors([
-                'email' => 'Alamat email atau kata sandi tidak valid.',
+                'name' => 'Nama atau kata sandi tidak valid.',
             ]);
         $this->assertGuest();
     }
 
-    public function test_login_requires_a_valid_email_and_password(): void
+    public function test_login_requires_a_username_and_password(): void
     {
         $response = $this->post('/login', [
-            'email' => 'bukan-email',
+            'name' => ['bukan-nama'],
             'password' => '',
         ]);
 
-        $response->assertSessionHasErrors(['email', 'password']);
+        $response->assertSessionHasErrors(['name', 'password']);
         $this->assertGuest();
     }
 
@@ -69,25 +91,26 @@ class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_login_validates_non_string_email_input(): void
+    public function test_login_validates_non_string_username_input(): void
     {
         $response = $this->post('/login', [
-            'email' => ['petugas@example.com'],
+            'name' => ['petugas'],
             'password' => 'some-password',
         ]);
 
-        $response->assertSessionHasErrors(['email']);
+        $response->assertSessionHasErrors(['name']);
         $this->assertGuest();
     }
 
     public function test_unverified_user_is_redirected_to_email_verification(): void
     {
         $user = User::factory()->unverified()->create([
+            'name' => 'petugas',
             'password' => Hash::make('CorrectHorseBattery!42'),
         ]);
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'name' => 'petugas',
             'password' => 'CorrectHorseBattery!42',
         ]);
 
@@ -108,13 +131,13 @@ class LoginTest extends TestCase
     {
         for ($attempt = 0; $attempt < 5; $attempt++) {
             $this->post('/login', [
-                'email' => 'petugas@example.com',
+                'name' => 'petugas',
                 'password' => 'wrong-password',
             ])->assertRedirect();
         }
 
         $this->post('/login', [
-            'email' => 'petugas@example.com',
+            'name' => 'petugas',
             'password' => 'wrong-password',
         ])->assertTooManyRequests();
 

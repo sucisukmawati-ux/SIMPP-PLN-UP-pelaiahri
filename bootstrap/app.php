@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: 'REMOTE_ADDR');
         $middleware->trustHosts(
             at: fn (): array => [
                 '^'.preg_quote((string) parse_url(config('app.url'), PHP_URL_HOST), '/').'$',
