@@ -39,4 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::view('/dashboard', 'dashboard')
         ->middleware('verified')
         ->name('dashboard');
+
+    Route::view('/pelanggan', 'pelanggan')
+        ->middleware('verified')
+        ->name('pelanggan.index');
+
+    Route::view('/laporan', 'laporan')
+        ->middleware('verified')
+        ->name('laporan');
 });
